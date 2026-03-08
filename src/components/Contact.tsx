@@ -73,8 +73,8 @@ const Contact = () => {
   // Validation functions
   const validateName = (name: string): string | undefined => {
     if (!name.trim()) return "Name is required";
-    if (!/^[a-zA-Z\s\-']+$/.test(name.trim())) {
-      return "Name can only contain letters, spaces, and hyphens";
+    if (!/^[\p{L}\s.\-']+$/u.test(name.trim())) {
+      return "Name can only contain letters, spaces, dots, and hyphens";
     }
     if (name.trim().length < 2) return "Name must be at least 2 characters";
     if (name.trim().length > 100) return "Name must be less than 100 characters";
