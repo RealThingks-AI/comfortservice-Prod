@@ -35,13 +35,6 @@ const Hero = () => {
     }
   };
 
-  const handleScrollToServices = () => {
-    const element = document.getElementById("services");
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
   return (
     <section
       id="home"
