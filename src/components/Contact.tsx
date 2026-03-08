@@ -110,7 +110,7 @@ const Contact = () => {
 
   // Handle field changes with real-time validation
   const handleNameChange = (value: string) => {
-    const filtered = value.replace(/[^a-zA-Z\s\-']/g, "");
+    const filtered = value.replace(/[^\p{L}\s.\-']/gu, "");
     setFormData({ ...formData, name: filtered });
     if (touched.name) {
       setErrors({ ...errors, name: validateName(filtered) });
