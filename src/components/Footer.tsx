@@ -17,10 +17,6 @@ const Footer = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
   return (
     <footer className="relative bg-navy pt-16 pb-8" ref={ref}>
       {/* Decorative Top Border */}
