@@ -88,7 +88,6 @@ const Testimonials = () => {
       id="testimonials" 
       className="section-padding bg-accent/5"
       onKeyDown={handleKeyDown}
-      tabIndex={0}
       role="region"
       aria-label="Customer testimonials"
     >

@@ -90,7 +90,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="h-[5.5rem] md:h-[7rem] lg:h-[8rem] mt-6 mb-8 md:mt-8 md:mb-10 overflow-hidden"
+            className="min-h-[4.5rem] md:min-h-[7rem] lg:min-h-[8rem] mt-6 mb-8 md:mt-8 md:mb-10 overflow-hidden"
           >
             <AnimatePresence mode="wait">
               <motion.h1

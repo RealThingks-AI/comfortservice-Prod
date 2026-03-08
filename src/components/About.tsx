@@ -60,7 +60,7 @@ const About = () => {
 
   const stats = [
     { value: 7, suffix: "+", label: "Years Experience", details: "Since 2018, Comfort Technical Services has been serving Pune & PCMC with professional AC services. Our experience has made us experts in handling all types of AC units from all major brands." },
-    { value: 1000, suffix: "+", label: "AC Units Serviced", details: "We've successfully serviced over 1,000 AC units across Pune and PCMC. From simple servicing to complex repairs, our track record speaks for itself." },
+    { value: 10000, suffix: "+", label: "AC Units Serviced", details: "We've successfully serviced over 10,000 AC units across Pune and PCMC. From simple servicing to complex repairs, our track record speaks for itself." },
     { value: 57, suffix: "+", label: "Google Reviews", details: "Our customers love us! With 57+ Google reviews and a perfect 5.0 rating, we're proud of the trust our customers place in us." },
     { value: 5, suffix: "/5", label: "Google Rating", details: "A perfect 5.0 Google rating reflects our unwavering commitment to quality service, transparent pricing, and customer satisfaction." },
   ];

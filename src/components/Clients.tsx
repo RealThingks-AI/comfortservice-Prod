@@ -30,9 +30,9 @@ const stats = [
   },
   {
     icon: Star,
-    value: "4.8★",
-    label: "Customer Rating",
-    description: "Based on reviews",
+    value: "5.0★",
+    label: "Google Rating",
+    description: "57+ verified reviews",
   },
   {
     icon: Shield,
