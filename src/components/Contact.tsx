@@ -73,8 +73,8 @@ const Contact = () => {
   // Validation functions
   const validateName = (name: string): string | undefined => {
     if (!name.trim()) return "Name is required";
-    if (!/^[a-zA-Z\s\-']+$/.test(name.trim())) {
-      return "Name can only contain letters, spaces, and hyphens";
+    if (!/^[\p{L}\s.\-']+$/u.test(name.trim())) {
+      return "Name can only contain letters, spaces, dots, and hyphens";
     }
     if (name.trim().length < 2) return "Name must be at least 2 characters";
     if (name.trim().length > 100) return "Name must be less than 100 characters";
@@ -110,7 +110,7 @@ const Contact = () => {
 
   // Handle field changes with real-time validation
   const handleNameChange = (value: string) => {
-    const filtered = value.replace(/[^a-zA-Z\s\-']/g, "");
+    const filtered = value.replace(/[^\p{L}\s.\-']/gu, "");
     setFormData({ ...formData, name: filtered });
     if (touched.name) {
       setErrors({ ...errors, name: validateName(filtered) });
@@ -414,7 +414,7 @@ const Contact = () => {
               </h4>
               <div className="rounded-2xl overflow-hidden border border-border shadow-lg">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3780.5!2d73.8!3d18.65!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTjCsDM5JzAwLjAiTiA3M8KwNDgnMDAuMCJF!5e0!3m2!1sen!2sin!4v1703000000000!5m2!1sen!2sin"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3780.5!2d73.7997!3d18.6298!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTjCrjM3JzQ3LjMiTiA3M8KuNDcnNTguOSJF!5e0!3m2!1sen!2sin!4v1703000000000!5m2!1sen!2sin"
                   width="100%"
                   height="200"
                   style={{ border: 0 }}

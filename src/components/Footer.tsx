@@ -1,4 +1,4 @@
-import { Phone, MapPin, Mail, ArrowUp } from "lucide-react";
+import { Phone, MapPin, Mail } from "lucide-react";
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
@@ -16,10 +16,6 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
 
   return (
     <footer className="relative bg-navy pt-16 pb-8" ref={ref}>
@@ -167,20 +163,6 @@ const Footer = () => {
           </motion.div>
         </div>
       </div>
-
-      {/* Back to Top Button */}
-      <motion.button
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={isInView ? { opacity: 1, scale: 1 } : {}}
-        transition={{ duration: 0.4, delay: 0.7 }}
-        whileHover={{ y: -3, scale: 1.1 }}
-        whileTap={{ scale: 0.95 }}
-        onClick={scrollToTop}
-        className="absolute right-6 -top-6 p-3 bg-accent text-accent-foreground rounded-xl shadow-glow hover:shadow-glow-lg transition-all duration-300"
-        aria-label="Back to top"
-      >
-        <ArrowUp className="w-5 h-5" />
-      </motion.button>
     </footer>
   );
 };

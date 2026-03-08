@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Menu, X, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
@@ -19,31 +19,61 @@ const Navigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
 
+  const updateActiveSection = useCallback(() => {
+    const scrollY = window.scrollY;
+    
+    // Default to "home" when near top
+    if (scrollY < 100) {
+      setActiveSection("home");
+      return;
+    }
+
+    // Detect bottom of page for "contact"
+    const isAtBottom = (window.innerHeight + scrollY) >= (document.documentElement.scrollHeight - 100);
+    if (isAtBottom) {
+      setActiveSection("contact");
+      return;
+    }
+
+    // Viewport-center-based detection
+    const viewportCenter = scrollY + window.innerHeight / 3;
+    const sections = navLinks.map((link) => link.href.substring(1));
+    
+    let currentSection = "home";
+    for (const sectionId of sections) {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        const { offsetTop, offsetHeight } = element;
+        if (viewportCenter >= offsetTop && viewportCenter < offsetTop + offsetHeight) {
+          currentSection = sectionId;
+          break;
+        }
+      }
+    }
+    
+    setActiveSection(currentSection);
+  }, []);
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
-
-      // Scroll spy
-      const sections = navLinks.map((link) => link.href.substring(1));
-      const scrollPosition = window.scrollY + 100;
-
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const offsetTop = element.offsetTop;
-          const offsetHeight = element.offsetHeight;
-
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActiveSection(section);
-            break;
-          }
-        }
-      }
+      updateActiveSection();
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    // Set initial state
+    window.scrollTo(0, 0);
+    
+    // Delay observer to prevent flash
+    const timeout = setTimeout(() => {
+      handleScroll();
+      window.addEventListener("scroll", handleScroll, { passive: true });
+    }, 100);
+
+    return () => {
+      clearTimeout(timeout);
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [updateActiveSection]);
 
   // Close mobile menu on escape key
   useEffect(() => {
@@ -121,12 +151,10 @@ const Navigation = () => {
                   }`}
                 >
                   {link.label}
-                  {/* Active Indicator */}
-                  <motion.span 
+                  <span 
                     className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-accent rounded-full transition-all duration-300 ${
                       activeSection === link.href.substring(1) ? "w-6" : "w-0 group-hover:w-4"
                     }`}
-                    layoutId="activeNav"
                   />
                 </a>
               ))}
@@ -147,7 +175,7 @@ const Navigation = () => {
             </div>
 
             {/* Mobile Menu Button */}
-            <motion.button
+            <button
               className={`lg:hidden p-2.5 rounded-xl transition-colors ${
                 isScrolled 
                   ? "hover:bg-accent/10" 
@@ -156,7 +184,6 @@ const Navigation = () => {
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-label="Toggle menu"
               aria-expanded={isMobileMenuOpen}
-              whileTap={{ scale: 0.95 }}
             >
               <AnimatePresence mode="wait">
                 {isMobileMenuOpen ? (
@@ -189,7 +216,7 @@ const Navigation = () => {
                   </motion.div>
                 )}
               </AnimatePresence>
-            </motion.button>
+            </button>
           </div>
         </div>
       </motion.nav>
@@ -218,14 +245,13 @@ const Navigation = () => {
             >
               {/* Header */}
               <div className="flex items-center justify-end p-4 border-b border-border">
-                <motion.button
+                <button
                   onClick={() => setIsMobileMenuOpen(false)}
                   aria-label="Close menu"
                   className="p-2 rounded-xl hover:bg-accent/10 transition-colors"
-                  whileTap={{ scale: 0.95 }}
                 >
                   <X className="w-5 h-5 text-foreground" />
-                </motion.button>
+                </button>
               </div>
 
               {/* Navigation Links */}
@@ -238,7 +264,7 @@ const Navigation = () => {
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.03 + 0.1, duration: 0.2 }}
-                    className={`flex items-center gap-3 px-5 py-3.5 text-base font-medium transition-all ${
+                    className={`flex items-center gap-3 px-5 py-3.5 text-base font-medium transition-all min-h-[48px] ${
                       activeSection === link.href.substring(1)
                         ? "text-accent bg-accent/10 border-r-4 border-accent"
                         : "text-foreground hover:text-accent hover:bg-accent/5"
@@ -262,7 +288,7 @@ const Navigation = () => {
                 className="p-6 border-t border-border bg-muted/50"
               >
                 <a href="tel:7745046520" className="block">
-                  <Button variant="accent" size="lg" className="w-full gap-2 font-semibold">
+                  <Button variant="accent" size="lg" className="w-full gap-2 font-semibold min-h-[48px]">
                     <Phone className="w-5 h-5" />
                     Call Now
                   </Button>
