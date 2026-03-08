@@ -1,4 +1,4 @@
-import { Phone, MapPin, Mail, ArrowUp } from "lucide-react";
+import { Phone, MapPin, Mail } from "lucide-react";
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
