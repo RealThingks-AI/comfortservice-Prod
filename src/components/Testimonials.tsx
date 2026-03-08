@@ -218,8 +218,8 @@ const Testimonials = () => {
         >
           <div className="inline-flex items-center gap-2 px-6 py-3 bg-accent/10 text-accent rounded-xl font-medium text-sm">
             <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-            <span className="text-foreground">4.8/5 Average Rating</span>
-            <span className="text-muted-foreground">• 1000+ Happy Customers</span>
+            <span className="text-foreground">5.0/5 Google Rating</span>
+            <span className="text-muted-foreground">• 10,000+ AC Units Serviced</span>
           </div>
         </motion.div>
       </div>
